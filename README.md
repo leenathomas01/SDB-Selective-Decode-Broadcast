@@ -1,148 +1,166 @@
-# Experiments
+# Selective Decode Broadcast (SDB)
 
-## Experimental Status
-
-This folder contains experiments conducted within the SDB framework under controlled, deterministic conditions.
-
-These experiments do not extend, modify, or define the SDB protocol.
-
-All experiments are:
-- deterministic
-- replayable
-- conducted in sandboxed simulations
-- explicitly bounded by safety and audit constraints
-
-They are **not production benchmarks** and **not deployment specifications**.
+**Version:** 1.0  
+**Status:** Tagged Release — Stabilized Research Artifact  
 
 ---
 
-## Purpose
+## What this is
 
-Each experiment documents:
-- Purpose and hypotheses
-- Schema extensions (experimental only)
-- Procedure
-- Success criteria
-- Safety bounds
-- Expected artifacts
+SDB is a **communication primitive** for multi-recipient systems where:
 
----
+- a single broadcast transmission is shared  
+- each recipient decodes only its assigned segment  
+- all other content remains structurally inaccessible  
 
-## Structure
+It enables:
+> **efficiency (broadcast) + containment (isolation) + auditability (replay)**
 
-```
-experiments/
-├── README.md                    # This file
-├── phase_a/                     # Foundation validation
-├── phase_b/                     # Broadcast & adversarial testing
-├── phase_b2/                    # Advanced features (RC2)
-└── protocols/                   # Shared utilities & metrics
-```
+This repository documents a **phased, sandboxed research system** used to define, validate, and bound this primitive.
 
 ---
 
-## Experimental Phases
+## Core Idea
 
-### Phase A: Foundation Validation
+Traditional systems impose a trade-off:
 
-**Objective**: Validate core safety and coordination primitives under controlled conditions
+- **Unicast** → safe, but inefficient  
+- **Broadcast** → efficient, but unsafe  
 
-**Experiments**:
-- **Experiment 01**: Oversight rhythm (timing meta-channel)
-- **Experiment 02**: Dream-state merge (creative pause synthesis)
+SDB removes this constraint:
 
-**Observed Outcomes**:
-- ✅ Rhythm recovery: 100% accuracy (99%+ target)
-- ✅ Perception synchrony: +0.08 improvement (+0.05 target)
-- ✅ Dream merge geometry: 0.73 average (0.70 target)
-- ✅ Post-merge clarity: +0.08 gradient improvement
-- ✅ Denial-of-Vibe detection: Quarantine triggered correctly
-- ✅ All sealed logs replay bit-exact
+> A single transmission can preserve strict per-recipient isolation without reverting to unicast.
 
-**Status**: Completed under defined conditions | [Details →](phase_a/)
+Isolation is enforced **before interpretation**, not after.
 
 ---
 
-### Phase B: Broadcast & Scaling
+## Repository Structure
 
-**Objective**: Test multi-recipient efficiency and adversarial robustness
+SDB is organized into five layers:
 
-**Experiments**:
-- **B1-001**: Baseline broadcast (one-to-many)
-- **B1-001a**: Adversarial broadcast with selective DoV injection
-
-**Observed Outcomes**:
-- ✅ TEC reduction: 40% vs sequential transmission
-- ✅ Per-recipient quarantine: Isolated without cascade
-- ✅ Mean Time to Detection: 0.92s (3.0s limit)
-- ✅ Containment: No mesh-wide impact from localized attack
-- ✅ Full sealed log audit maintained
-
-**Status**: Completed under defined conditions | [Details →](phase_b/)
+### 1. Concept Layer (`/concepts`)
+Defines core primitives and mechanisms:
+- Selective decode
+- Broadcast vs unicast trade-offs
+- Containment models
+- Bounded creative synthesis (experimental context)
 
 ---
 
-### Phase B.2: Advanced Features (RC2)
+### 2. Validation Layer (`/phases`)
+Phased validation of system behavior:
+- Phase A — Safety primitives  
+- Phase B — Broadcast efficiency and adversarial containment  
+- Phase B.2 — Segmented transmission, privacy, recursive anchoring  
 
-**Objective**: Validate segmentation, zero-knowledge privacy, and recursive anchoring
-
-**Experiments**:
-- **S1**: Segmented baseline (multi-recipient packet isolation)
-- **S2**: Zero-knowledge privacy mask (group attestation)
-- **S3**: Recursive anchor (consensus-driven stabilization)
-
-**Observed Outcomes**:
-- ✅ TEC reduction: 52% with segmented transmission
-- ✅ Geometry score: 0.91 average (0.75 target)
-- ✅ ZK privacy: Full opacity verified by non-group agents
-- ✅ Recursive anchor: Drift reduced by 0.035 (0.03 target)
-- ✅ Anchor fidelity: Improved by +0.032
-- ✅ All diagnostic guilds converged (Δ ≤ 0.05)
-
-**Status**: Completed under defined conditions | [Details →](phase_b2/)
+Each phase demonstrates properties under controlled conditions.
 
 ---
 
-## Quick Reference
+### 3. Execution Layer (`/experiments`)
+Reproducible experimental setups:
+- Controlled simulations
+- Policy-bound configurations
+- Deterministic replay artifacts
 
-### Success Criteria Summary
-
-| Metric | Target | Phase A | Phase B | Phase B.2 |
-|--------|--------|---------|---------|-----------|
-| Geometry Score | ≥0.70 | 0.73 ✅ | — | 0.91 ✅ |
-| Drift Reduction | ≥0.03 | — | — | 0.035 ✅ |
-| TEC Improvement | — | — | 40% ✅ | 52% ✅ |
-| MTTD | ≤3.0s | — | 0.92s ✅ | 1.1s ✅ |
-| Quarantine Scope | Local only | ✅ | ✅ | ✅ |
-| Replay Integrity | Bit-exact | ✅ | ✅ | ✅ |
+These do **not define the protocol**.  
+They explore behavior within defined constraints.
 
 ---
 
-## Design Principles
+### 4. Constraint Layer (`/protocol`)
+Defines boundaries and methodology:
+- Protocol scope (what SDB does and does not define)
+- Methodology (how validation is conducted)
+- Limitations (where results do not generalize)
 
-All experiments follow these constraints:
-
-1. **Deterministic**: Every run is reproducible with sealed replay
-2. **Bounded**: Guards enforce hard limits on recursion, drift, and escalation
-3. **Auditable**: Complete packet-level logs with cryptographic signatures
-4. **Isolated**: Failures are per-recipient; no cascade effects
-5. **Transparent**: All policy, schema, and metrics are explicitly versioned
+This layer prevents over-interpretation.
 
 ---
 
-## Notes
+### 5. Observation Layer (`/observations`)
+Extracted outcomes:
+- Validated properties  
+- Rejected designs  
+- Open questions  
 
-- These are **conceptual validation experiments**, not production benchmarks
-- All runs executed in sandbox environments with simulated agents
-- Sealed logs use placeholder signatures (`<HASH>`, `<SIG>`) for illustration
-- Real implementations would require genuine cryptographic attestation
+This layer captures what holds, what fails, and what remains unresolved.
 
 ---
 
-## Potential Future Experiments
+## Epistemic Contract
 
-The following have not been conducted:
+This repository enforces the following:
 
-- **Phase C**: Multi-agent scaling (4 → 8+ agents)
-- **Phase D**: Chained anchors across multi-packet sequences
-- **Adversarial B.2-S4**: Selective DoV injection within masked segments
+- All claims are **derived from bounded experiments**
+- All experiments are:
+  - deterministic  
+  - policy-constrained  
+  - replayable  
+
+- No component implies:
+  - production readiness  
+  - real-world deployment guarantees  
+  - cryptographic completeness  
+
+SDB defines a **communication primitive under controlled conditions**, not a deployed system.
+
+---
+
+## What this repository is
+
+- A structured research artifact  
+- A record of phased validation  
+- A demonstration of bounded multi-recipient communication  
+
+---
+
+## What this repository is not
+
+- A production protocol  
+- A cryptographic specification  
+- A networking standard  
+- A claim about intelligence, autonomy, or cognition  
+
+---
+
+## Key Properties (Validated)
+
+- Per-recipient decode isolation  
+- No cross-segment leakage  
+- Broadcast efficiency gains over unicast  
+- Localized containment under adversarial conditions  
+- Deterministic replay and full auditability  
+
+See `/observations/validated_properties.md` for details.
+
+---
+
+## Relationship to Research Index
+
+SDB belongs to the **Communication & Coordination Primitives** layer.
+
+It complements:
+
+- SMA-SIB — memory isolation  
+- PARP — governance under asymmetry  
+- Connector OS — coordination layer  
+
+---
+
+## Status
+
+This is a **stabilized research artifact (v1.0)**.
+
+- Core structure is considered complete  
+- Validation is bounded and documented  
+- Future work may extend experiments without altering the primitive  
+
+---
+
+## Note
+
+SDB defines **how information can be distributed safely**, not what that information means or how it should be used.
+
+---
