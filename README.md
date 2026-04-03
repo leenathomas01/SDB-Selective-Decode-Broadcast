@@ -1,3 +1,5 @@
+---> Author note: REPO is ONGOING and isnt complete. Working on this during my downtime, hence the schedule is unpredictable.
+
 ![Version](https://img.shields.io/badge/version-v1.0-blue)
 
 # Selective Decode Broadcast (SDB)
