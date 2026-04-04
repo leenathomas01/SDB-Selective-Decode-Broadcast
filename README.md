@@ -173,3 +173,10 @@ This is a **stabilized research artifact (v1.0)**.
 SDB defines **how information can be distributed safely**, not what that information means or how it should be used.
 
 ---
+
+## Related Work
+
+**For a complete catalog of related research:**  
+📂 [Research Index](https://github.com/leenathomas01/research-index)
+
+---
